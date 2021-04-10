@@ -2,17 +2,41 @@
 title: "Reproducible Research: Peer Assessment 1"
 output: 
   html_document:
-    keep_md: true
+  keep_md: true
+
 ---
 
 
 ## Loading and preprocessing the data
+data <- read.csv("./activity/activity.csv")
+library(ggplot2)
+library(dplyr)
 
+data$date <- as.Date(data$date)
 
 
 ## What is mean total number of steps taken per day?
 
+For this part of the assignment, you can ignore the missing values in the dataset.
 
+1. Make a histogram of the total number of steps taken each day
+
+```{r}
+
+stepsPerDay <- tapply(data$steps, data$date, sum, na.rm=TRUE)
+qplot(stepsPerDay, binwidth=1000, xlab="Steps per day")
+
+```
+
+2. Calculate and report the mean and median total number of steps taken per day
+
+```{r}
+print("Mean:")
+mean(stepsPerDay, na.rm=TRUE)
+print("Median:")
+median(stepsPerDay, na.rm=TRUE)
+
+```
 
 ## What is the average daily activity pattern?
 
